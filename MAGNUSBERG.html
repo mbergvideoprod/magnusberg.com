@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Magnus Berg — Video Editor · Showreel 2026</title>
+<meta name="description" content="Video editor showreel, bio and contacts.">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+  html,body{margin:0;background:#0B0B0B}
+  html{scroll-behavior:smooth}
+  #mob{display:none}
+  /* phones (portrait, or landscape on a touch screen): show the phone layout, the page itself does not scroll */
+  @media (max-width: 760px), (max-height: 500px) and (pointer: coarse) {
+    #desk{display:none}
+    #mob{display:block;height:100vh;height:100dvh}
+    html,body{height:100%;overflow:hidden}
+  }
+</style>
+</head>
+<body>
+<div id="desk"></div>
+<div id="mob"></div>
+
+<template id="desk-tpl"><style>:host{display:block;background:#0B0B0B}
+
+body{margin:0;background:#0B0B0B}
+a{color:#E6E6E6;text-decoration:none}a:hover{color:#FFFFFF}
+.navlink:hover,.navlink:focus-visible{border-color:#E6E6E6}
+.darklink{color:#111111}.darklink:hover,.darklink:focus-visible{color:#000000;border-color:#111111}
+.play{transition:background .35s ease,color .35s ease,transform .35s ease}
+.play svg path{transition:fill .35s ease}
+.reel-link:hover .play,.reel-link:focus-visible .play{background:#E6E6E6;transform:scale(1.06)}
+.reel-link:hover .play svg path,.reel-link:focus-visible .play svg path{fill:#0B0B0B}
+.mail{transition:letter-spacing .6s cubic-bezier(.2,.7,.2,1)}
+.mail:hover{letter-spacing:0.01em;color:#000000}
+/* scene 3 — bar group on the right: rises from the floor, then the soft wave from page 1 runs across it */
+@keyframes cRise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes cWave{0%,100%{filter:opacity(1)}50%{filter:opacity(.3)}}
+.anim .rv:not(.in) .c-bar{transform:scaleY(0)}
+.rv.in .c-bar{transform-origin:bottom;animation:cRise .9s cubic-bezier(.16,1,.3,1) both,cWave 4s ease-in-out infinite}
+.c-bars .c-bar:nth-child(1){animation-delay:.3s,2.2s}.c-bars .c-bar:nth-child(2){animation-delay:.36s,2.34s}
+.c-bars .c-bar:nth-child(3){animation-delay:.42s,2.48s}.c-bars .c-bar:nth-child(4){animation-delay:.48s,2.62s}
+.c-bars .c-bar:nth-child(5){animation-delay:.54s,2.76s}.c-bars .c-bar:nth-child(6){animation-delay:.6s,2.9s}
+.c-bars .c-bar:nth-child(7){animation-delay:.66s,3.04s}.c-bars .c-bar:nth-child(8){animation-delay:.72s,3.18s}
+.c-bars .c-bar:nth-child(9){animation-delay:.78s,3.32s}
+/* scene 3 typewriter: caret rides the letters, then blinks */
+.c-typewrap{position:relative;display:inline-block}
+.c-type{display:inline-block}
+.c-caret{position:absolute;left:100%;top:50%;width:7px;height:13px;margin:-7px 0 0 4px;background:#222222}
+.anim .rv:not(.in) .c-type{clip-path:inset(0 100% 0 0)}
+.anim .rv:not(.in) .c-caret{opacity:0}
+.rv.in .c-type{animation:hType 1s steps(10,end) .8s both}
+.rv.in .c-caret{animation:hFade .3s ease .5s both,hCaret 1s steps(10,end) .8s both,blink 1.1s steps(1) 1.9s infinite}
+.c-row .c-arrow{transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.c-row:hover .c-arrow,.c-row:focus-visible .c-arrow{transform:translate(4px,-4px)}
+.c-row:hover .c-val,.c-row:focus-visible .c-val{color:#000000}
+
+/* ===== keyframes ===== */
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes lineX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes barX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tickIn{from{opacity:0;transform:scaleY(0)}to{opacity:1;transform:scaleY(1)}}
+@keyframes scan{0%,100%{filter:brightness(1)}50%{filter:brightness(.35)}}
+@keyframes nameIn{from{clip-path:inset(0 50% 0 50%)}to{clip-path:inset(0 0 0 0)}}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes plusIn{from{opacity:0;transform:rotate(-90deg) scale(.5)}to{opacity:1;transform:none}}
+@keyframes glowIn{from{opacity:0;transform:translate(-50%,-50%) scale(.2)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes breathe{0%,100%{opacity:.75}50%{opacity:1}}
+@keyframes slide{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes drop{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes introBar{0%{transform:scaleY(.06) scaleX(1.6)}60%{transform:scaleY(1.05)}100%{transform:scaleY(1)}}
+@keyframes introOut{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
+
+/* ===== reveal system: hidden only after the script starts (.anim) and before the section is seen ===== */
+.anim .rv:not(.in) .a-up,.anim .rv:not(.in) .a-fade,.anim .rv:not(.in) .a-line,.anim .rv:not(.in) .a-lineL,
+.anim .rv:not(.in) .a-type,.anim .rv:not(.in) .a-plus,.anim .rv:not(.in) .a-bar,.anim .rv:not(.in) .a-glow,
+.anim .rv:not(.in) .a-slide,.anim .rv:not(.in) .a-drop,.anim .rv:not(.in) .a-name,.anim .rv:not(.in) .tick{opacity:0}
+.rv.in .a-up{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+.rv.in .a-fade{animation:fade 1.2s ease both}
+.rv.in .a-line{animation:lineX 1s cubic-bezier(.7,0,.2,1) both}
+.rv.in .a-lineL{transform-origin:left;animation:lineX 1s cubic-bezier(.7,0,.2,1) both}
+.rv.in .a-type{animation:type .8s steps(22,end) both}
+.rv.in .a-plus{animation:plusIn .6s cubic-bezier(.2,.7,.2,1) both}
+.rv.in .a-bar{transform-origin:left;animation:barX .7s cubic-bezier(.7,0,.2,1) both}
+/* scroll parallax on every page: each page gets --p (-1 → 0 → 1) from its scroll position; layers move at different speeds */
+.px-l{translate:0 calc(var(--p, 0) * 40px)}
+.px-r{translate:0 calc(var(--p, 0) * 110px)}
+.px-bg{translate:0 calc(var(--p, 0) * -90px)}
+/* scene transitions: a page fades and settles back as it scrolls away (--a = distance from centre, 0–1);
+   the light Contacts page starts in the dark tone of page 2 and brightens as it arrives (--pin = 0–1 while entering) */
+html{scroll-behavior:smooth}
+/* hover: every clickable item grows slightly so it reads as a button */
+header a,a.navlink,a.cta,a.c-row,a.darklink{transition:scale .7s cubic-bezier(.45,0,.2,1),color .4s ease,border-color .4s ease;will-change:scale;backface-visibility:hidden}
+header a:hover,header a:focus-visible,a.navlink:hover,a.navlink:focus-visible,a.darklink:hover,a.darklink:focus-visible{scale:1.08}
+a.cta:hover,a.cta:focus-visible{scale:1.06}
+a.c-row{transform-origin:left center}
+a.c-row:hover,a.c-row:focus-visible{scale:1.04}
+@keyframes toastLife{0%{opacity:0;transform:translate(-50%,12px)}12%{opacity:1;transform:translate(-50%,0)}82%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,6px)}}
+.toast{opacity:0;visibility:hidden;transform:translate(-50%,0)}
+.toast.show{visibility:visible;animation:toastLife 2.4s cubic-bezier(.16,1,.3,1) both}
+.px-out{opacity:calc(1 - var(--a, 0) * .85);scale:calc(1 - var(--a, 0) * .04)}
+.px-dim{opacity:var(--pin, 0)}
+.rv.in .a-glow{animation:glowIn 1.4s cubic-bezier(.2,.7,.2,1) both}
+.rv.in .a-slide{animation:slide 1.1s cubic-bezier(.2,.7,.2,1) both}
+.rv.in .a-drop{transform-origin:top;animation:drop .9s cubic-bezier(.7,0,.2,1) both}
+.rv.in .a-name{animation:nameIn 1s cubic-bezier(.7,0,.2,1) both}
+
+/* ===== scene 1 — page-load sequence (expo-out / quart-in-out easing) ===== */
+@keyframes hLine{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
+@keyframes hStripes{from{opacity:0;transform:translate(-50%,-50%) scaleX(.1)}to{opacity:1;transform:translate(-50%,-50%) scaleX(1)}}
+@keyframes hBreathe{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes hName{0%{opacity:0;clip-path:inset(-20% 50% -20% 50%);filter:blur(12px);transform:scale(1.08)}20%{opacity:1}100%{opacity:1;clip-path:inset(-20% 0 -20% 0);filter:blur(0);transform:scale(1)}}
+@keyframes hEdgeL{0%{left:50%;opacity:0}12%{opacity:1}78%{opacity:.9}100%{left:0%;opacity:0}}
+@keyframes hEdgeR{0%{left:50%;opacity:0}12%{opacity:1}78%{opacity:.9}100%{left:100%;opacity:0}}
+@keyframes hTickL{from{opacity:0;transform:translateX(56px) scaleY(.15)}to{transform:none}}
+@keyframes hTickR{from{opacity:0;transform:translateX(-56px) scaleY(.15)}to{transform:none}}
+@keyframes hScan{0%,100%{filter:brightness(1)}50%{filter:brightness(.3)}}
+@keyframes hTrack{from{opacity:0;letter-spacing:.6em;filter:blur(6px)}to{opacity:1;filter:blur(0)}}
+@keyframes hType{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes hCaret{from{left:0%}to{left:100%}}
+@keyframes hShape{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+@keyframes hFade{from{opacity:0}to{opacity:1}}
+@keyframes rPlus{from{opacity:0;transform:rotate(-180deg) scale(.3)}to{opacity:1;transform:none}}
+@keyframes rFrame{from{opacity:0;clip-path:inset(50% 0 50% 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+@keyframes rPop{from{opacity:0;transform:scale(.7);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+
+
+.h-line{animation:hLine 1.6s cubic-bezier(.76,0,.24,1) .1s both}
+.h-stripes{animation:hStripes 2s cubic-bezier(.16,1,.3,1) .35s both,hBreathe 5s ease-in-out 2.6s infinite}
+.h-name{animation:hName 1.6s cubic-bezier(.76,0,.24,1) .5s both}
+.h-edge{position:absolute;top:-18%;bottom:-18%;width:1px;margin-left:-.5px;background:linear-gradient(180deg,rgba(255,255,255,0),#FFFFFF 50%,rgba(255,255,255,0));opacity:0;pointer-events:none}
+.h-edge.l{animation:hEdgeL 1.6s cubic-bezier(.76,0,.24,1) .5s both}
+.h-edge.r{animation:hEdgeR 1.6s cubic-bezier(.76,0,.24,1) .5s both}
+/* side lines glide out from behind the name, inner first, then a soft light wave runs outward */
+.ticks.l .h-tick{animation:hTickL 1.4s cubic-bezier(.16,1,.3,1) both,hScan 4s ease-in-out infinite}
+.ticks.r .h-tick{animation:hTickR 1.4s cubic-bezier(.16,1,.3,1) both,hScan 4s ease-in-out infinite}
+.ticks.r .h-tick:nth-child(1),.ticks.l .h-tick:nth-last-child(1){animation-delay:.95s,3s}
+.ticks.r .h-tick:nth-child(2),.ticks.l .h-tick:nth-last-child(2){animation-delay:1.02s,3.14s}
+.ticks.r .h-tick:nth-child(3),.ticks.l .h-tick:nth-last-child(3){animation-delay:1.09s,3.28s}
+.ticks.r .h-tick:nth-child(4),.ticks.l .h-tick:nth-last-child(4){animation-delay:1.16s,3.42s}
+.ticks.r .h-tick:nth-child(5),.ticks.l .h-tick:nth-last-child(5){animation-delay:1.23s,3.56s}
+.ticks.r .h-tick:nth-child(6),.ticks.l .h-tick:nth-last-child(6){animation-delay:1.3s,3.7s}
+.ticks.r .h-tick:nth-child(7),.ticks.l .h-tick:nth-last-child(7){animation-delay:1.37s,3.84s}
+.ticks.r .h-tick:nth-child(8),.ticks.l .h-tick:nth-last-child(8){animation-delay:1.44s,3.98s}
+.ticks.r .h-tick:nth-child(9),.ticks.l .h-tick:nth-last-child(9){animation-delay:1.51s,4.12s}
+.h-track{animation:hTrack 1.8s cubic-bezier(.16,1,.3,1) 1.5s both}
+.h-line2{animation:hLine 1.8s cubic-bezier(.76,0,.24,1) 1.8s both}
+/* typewriter: the caret rides the leading edge of the text, then blinks */
+.h-typewrap{position:relative;display:inline-block}
+.h-type{display:inline-block;animation:hType 1.5s steps(30,end) 2.3s both}
+.h-caret{position:absolute;left:0;top:50%;width:7px;height:13px;margin:-7px 0 0 4px;background:#D9D9D9;animation:hFade .4s ease 1.9s both,hCaret 1.5s steps(30,end) 2.3s both,blink 1.1s steps(1) 3.8s infinite}
+.h-shape{animation:hShape 2.2s cubic-bezier(.16,1,.3,1) 2s both}
+.h-fade{animation:hFade 1.4s ease 2.6s both}
+/* showreel field */
+.anim #reel:not(.in) .r-line,.anim #reel:not(.in) .r-plus,.anim #reel:not(.in) .r-frame,.anim #reel:not(.in) .r-type,.anim #reel:not(.in) .r-pop{opacity:0}
+#reel.in .r-type{animation:hType 1s steps(18,end) both}
+#reel.in .r-line{animation:hLine 1.6s cubic-bezier(.76,0,.24,1) both}
+#reel.in .r-plus{animation:rPlus 1.2s cubic-bezier(.16,1,.3,1) both}
+#reel.in .r-frame{animation:rFrame 1.6s cubic-bezier(.76,0,.24,1) both}
+#reel.in .r-pop{animation:rPop 1.2s cubic-bezier(.16,1,.3,1) both}
+@media (prefers-reduced-motion:reduce){.h-caret{left:100%!important}.stripe-wave,.line-glow{display:none}}
+
+/* page 1 — slow glowing wave across the background lines */
+@keyframes stripeWave{0%{-webkit-mask-position:0 200%;mask-position:0 200%}75%,100%{-webkit-mask-position:0 -100%;mask-position:0 -100%}}
+.stripe-wave{position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0) 0px,rgba(255,255,255,.45) 1px,rgba(255,255,255,0) 2px,rgba(255,255,255,0) 5px);-webkit-mask-image:linear-gradient(180deg,transparent,#000 50%,transparent);mask-image:linear-gradient(180deg,transparent,#000 50%,transparent);-webkit-mask-size:100% 45%;mask-size:100% 45%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;animation:stripeWave 6s linear 2.8s infinite both}
+/* glints start together in the middle of each line and travel out to the left and right ends */
+/* same bright glint as before; movement and fade run as two continuous layers, so it never stops and loops without a pause */
+/* lines taper to nothing at both ends (the glow tapers with them) */
+.h-line,.h-line2{-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 70%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 70%,transparent 100%)}
+@keyframes glowMoveL{from{left:32.5%}to{left:-22%}}
+@keyframes glowMoveR{from{left:32.5%}to{left:87%}}
+@keyframes glowFade{0%{opacity:0}25%{opacity:1}62%{opacity:1}97%,100%{opacity:0}}
+.line-glow{position:absolute;top:-1px;left:32.5%;width:35%;height:3px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0));filter:blur(.6px);opacity:0;pointer-events:none}
+.line-glow.l{animation:glowMoveL 6.5s cubic-bezier(.25,.46,.45,.94) 3.2s infinite both,glowFade 6.5s ease-in-out 3.2s infinite both}
+.line-glow.r{animation:glowMoveR 6.5s cubic-bezier(.25,.46,.45,.94) 3.2s infinite both,glowFade 6.5s ease-in-out 3.2s infinite both}
+
+/* every page is exactly one screen tall (follows the browser window height); content sits in the middle; grows only if content is taller */
+.screen{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+
+/* showreel call-to-action under the name: play button appears, underline draws, then a slow pulse invites the click */
+@keyframes ctaIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@keyframes ctaRing{0%{box-shadow:0 0 0 0 rgba(230,230,230,.5)}70%,100%{box-shadow:0 0 0 14px rgba(230,230,230,0)}}
+@keyframes ctaUnder{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes ctaNudge{0%,100%{transform:translate(0,0)}50%{transform:translate(3px,-3px)}}
+.cta{color:#D9D9D9;transition:color .3s ease}
+.cta:hover,.cta:focus-visible{color:#FFFFFF}
+.cta-play{animation:ctaIn .7s cubic-bezier(.16,1,.3,1) 2.6s both,ctaRing 2.4s ease-out 3.4s infinite;transition:background .3s ease}
+.cta-play path{transition:fill .3s ease}
+.cta:hover .cta-play,.cta:focus-visible .cta-play{background:#E6E6E6}
+.cta:hover .cta-play path,.cta:focus-visible .cta-play path{fill:#0B0B0B}
+.cta-under{transform-origin:left;animation:ctaUnder 1s cubic-bezier(.76,0,.24,1) 2.8s both;transition:background .3s ease}
+.cta:hover .cta-under,.cta:focus-visible .cta-under{background:#FFFFFF}
+.cta-arrow{animation:hFade .5s ease 3.4s both,ctaNudge 2.4s ease-in-out 3.9s infinite}
+.cta-hint{animation:hFade .8s ease 3.6s both}
+.cursor{display:inline-block;width:7px;height:12px;margin-left:4px;vertical-align:-1px;background:#8F8F8F;animation:blink 1s steps(1) infinite}
+.cursor.dark{background:#222222}
+
+/* scene 2 — intro bars rise, then the curtain lifts and the grid builds */
+.intro{display:none}
+.anim .intro{display:flex}
+.anim .rv:not(.in) .intro span{transform:scaleY(.06)}
+.rv.in .intro span{animation:introBar .8s cubic-bezier(.2,.7,.2,1) both}
+.rv.in .intro{animation:introOut .8s cubic-bezier(.7,0,.2,1) 1.4s both}
+.intro span:nth-child(2){animation-delay:.05s!important}.intro span:nth-child(3){animation-delay:.1s!important}
+.intro span:nth-child(4){animation-delay:.15s!important}.intro span:nth-child(5){animation-delay:.2s!important}
+.intro span:nth-child(6){animation-delay:.25s!important}.intro span:nth-child(7){animation-delay:.3s!important}
+.intro span:nth-child(8){animation-delay:.35s!important}.intro span:nth-child(9){animation-delay:.4s!important}
+.s3-glow{animation-iteration-count:1}
+.rv.in .s3-breathe{animation:breathe 6s ease-in-out 2s infinite}
+
+@media (max-width:700px){
+  .s3-outer{display:none}
+  .s3-shapes{opacity:.45}
+  .hide-sm{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .anim .rv:not(.in) *{opacity:1!important}
+  .anim .intro{display:none}
+}
+</style><div class="root" style="background: #0B0B0B; color: #E6E6E6; font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-stretch: 125%; overflow-x: hidden">
+
+  <!-- ================= SCENE 1 — NAME + SHOWREEL ================= -->
+  <section id="top" data-px="1" class="rv in screen" style="position: relative; overflow: hidden; background: #0B0B0B">
+    <!-- faint lower light shapes, spanning the full page width -->
+    <div class="h-shape px-bg" aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 42%; height: 46%; background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0)); clip-path: polygon(0 0, 55% 0, 100% 100%, 0 100%); pointer-events: none"></div>
+    <div class="h-shape px-bg" aria-hidden="true" style="position: absolute; right: 0; bottom: 0; width: 42%; height: 46%; background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0)); clip-path: polygon(45% 0, 100% 0, 100% 100%, 0 100%); pointer-events: none"></div>
+    <header class="h-fade" style="position: relative; z-index: 2; width: 100%; max-width: 1360px; margin: 0 auto; padding: 20px clamp(16px, 4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; box-sizing: border-box">
+      <a href="#top" style="font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F; padding: 12px 0">C:/[BYANE_MARG]</a>
+      <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 4px 6px; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase">
+        <a class="navlink" href="https://www.youtube.com/watch?v=ZLEERf_moXA" target="_blank" rel="noopener" style="padding: 12px 10px; border-bottom: 1px solid transparent">Reel ↗</a>
+        <a class="navlink" href="#info" style="padding: 12px 10px; border-bottom: 1px solid transparent">Info</a>
+        <a class="navlink" href="#contact" style="padding: 12px 10px; border-bottom: 1px solid transparent">Contact</a>
+      </nav>
+    </header>
+
+    <div class="px-out" style="position: relative; flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; padding: clamp(32px, 5vw, 72px) clamp(16px, 4vw, 40px) clamp(48px, 6vw, 80px); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(36px, 5vw, 64px)">
+      <!-- faint lower light shapes -->
+
+      <div class="h-line" style="position: relative; overflow: hidden; width: min(260px, 40%); height: 1px; background: #3A3A3A"><span class="line-glow l" aria-hidden="true"></span><span class="line-glow r" aria-hidden="true"></span></div>
+
+      <div class="px-l" style="position: relative; width: 100%; display: flex; align-items: center; gap: clamp(16px, 3vw, 48px)">
+        <div class="ticks l" aria-hidden="true" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: clamp(7px, 1.4vw, 20px); overflow: hidden; min-width: 0">
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.1"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.18"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.28"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.38"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.5"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.62"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.74"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.86"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 1"></span>
+        </div>
+        <div style="flex: none; position: relative; padding: 20px 8px">
+          <div class="h-stripes" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 120%; height: 160px; transform: translate(-50%, -50%); background: repeating-linear-gradient(90deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0.11) 1px, rgba(255,255,255,0) 2px, rgba(255,255,255,0) 5px); -webkit-mask-image: radial-gradient(closest-side, #000 0%, transparent 100%); mask-image: radial-gradient(closest-side, #000 0%, transparent 100%); pointer-events: none"><div class="stripe-wave"></div></div>
+          <h1 class="h-name" style="position: relative; margin: 0; font-weight: 800; font-size: clamp(26px, 5vw, 72px); line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; text-align: center">[MAGNUS BERG]</h1>
+          <div aria-hidden="true" style="position: absolute; top: 20px; bottom: 20px; left: 8px; right: 8px; pointer-events: none"><span class="h-edge l"></span><span class="h-edge r"></span></div>
+        </div>
+        <div class="ticks r" aria-hidden="true" style="flex: 1; display: flex; justify-content: flex-start; align-items: center; gap: clamp(7px, 1.4vw, 20px); overflow: hidden; min-width: 0">
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 1"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.86"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.74"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.62"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.5"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.38"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.28"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.18"></span>
+          <span class="h-tick" style="flex: none; width: 2px; height: 18px; background: #E6E6E6; opacity: 0.1"></span>
+        </div>
+      </div>
+
+      <div class="px-r" style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+        <a class="cta h-track" href="https://www.youtube.com/watch?v=ZLEERf_moXA" target="_blank" rel="noopener" aria-label="Watch the video editor showreel on YouTube" style="position: relative; display: inline-flex; align-items: center; gap: 14px; padding: 10px 4px 12px; font-size: clamp(12px, 1.3vw, 15px); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; text-align: center">
+          <span class="cta-play" aria-hidden="true" style="flex: none; width: 32px; height: 32px; border: 1px solid #E6E6E6; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-sizing: border-box"><svg width="10" height="12" viewBox="0 0 10 12" style="margin-left: 2px"><path d="M0 0L10 6L0 12Z" fill="#E6E6E6"></path></svg></span>
+          <span>VIDEO EDITOR — SHOWREEL 2026</span>
+          <svg class="cta-arrow" aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" style="flex: none"><path d="M3 11L11 3M5 3h6v6" fill="none" stroke="#E6E6E6" stroke-width="1.4"></path></svg>
+          <span class="cta-under" aria-hidden="true" style="position: absolute; left: 50px; right: 4px; bottom: 6px; height: 1px; background: #8F8F8F"></span>
+        </a>
+        <span class="cta-hint" style="font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F">&gt; Click to watch on YouTube</span>
+      </div>
+
+      <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px">
+        <p style="margin: 0; padding-right: 12px; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: #A8A8A8; white-space: nowrap"><span class="h-typewrap"><span class="h-type">C:/DESTINATION/[MAGNUSBERG]/SHOWREEL</span><span class="h-caret" aria-hidden="true"></span></span></p>
+        <div class="h-line2" style="position: relative; overflow: hidden; width: min(820px, 100%); height: 1px; background: #2E2E2E"><span class="line-glow l" aria-hidden="true"></span><span class="line-glow r" aria-hidden="true"></span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= SCENE 2 — INFO / BIO ================= -->
+  <section id="info" data-px="1" data-rv="info" class="screen rv" style="position: relative; overflow: hidden; background: #141414">
+    <!-- transition from page 1: starts in page 1's black and lifts to its own tone as it arrives; soft top edge so there is never a seam -->
+    <div class="px-dim" aria-hidden="true" style="position: absolute; inset: 0; background: #0B0B0B; pointer-events: none"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 30%; background: linear-gradient(180deg, #0B0B0B 0%, rgba(11,11,11,0) 100%); pointer-events: none"></div>
+    <!-- intro curtain: bars rise, then lift away -->
+    <div class="intro" aria-hidden="true" style="position: absolute; inset: 0; z-index: 3; background: #1E1E1E; align-items: center; justify-content: center; gap: clamp(10px, 2.6vw, 40px); pointer-events: none; display: none">
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+      <span style="width: clamp(16px, 4vw, 60px); height: clamp(120px, 22vw, 300px); background: #D9D9D9"></span>
+    </div>
+    <!-- glow + dark centre shape -->
+    <div class="px-bg" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none">
+    <div class="a-fade" aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 42%; height: 46%; background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0)); clip-path: polygon(0 0, 55% 0, 100% 100%, 0 100%); pointer-events: none; animation-delay: 0.9s"></div>
+    <div class="a-fade" aria-hidden="true" style="position: absolute; right: 0; bottom: 0; width: 42%; height: 46%; background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0)); clip-path: polygon(45% 0, 100% 0, 100% 100%, 0 100%); pointer-events: none; animation-delay: 0.9s"></div>
+    </div>
+
+    <div class="px-out" style="position: relative; width: 100%; max-width: 1240px; margin: 0 auto; padding: clamp(40px, 5vw, 80px) clamp(16px, 4vw, 40px); box-sizing: border-box">
+      <div style="position: relative; padding: clamp(40px, 6vw, 80px) clamp(12px, 5vw, 80px)">
+        <svg class="a-plus" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="position: absolute; left: -9px; top: -9px; animation-delay: 1.9s"><path d="M9 0v18M0 9h18" stroke="#E6E6E6" stroke-width="2.5"></path></svg>
+        <svg class="a-plus" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="position: absolute; right: -9px; top: -9px; animation-delay: 2s"><path d="M9 0v18M0 9h18" stroke="#E6E6E6" stroke-width="2.5"></path></svg>
+        <svg class="a-plus" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="position: absolute; left: -9px; bottom: -9px; animation-delay: 2.1s"><path d="M9 0v18M0 9h18" stroke="#E6E6E6" stroke-width="2.5"></path></svg>
+        <svg class="a-plus" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="position: absolute; right: -9px; bottom: -9px; animation-delay: 2.2s"><path d="M9 0v18M0 9h18" stroke="#E6E6E6" stroke-width="2.5"></path></svg>
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: clamp(48px, 6vw, 96px)">
+          <!-- left: about me + bio -->
+          <div class="px-l" style="flex: 1 1 420px; min-width: 0; max-width: 620px; display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 28px)">
+            <span class="a-type" style="width: fit-content; font-family: Poppins, sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #8F8F8F; animation-delay: 2.1s">&gt; Info / Bio</span>
+            <h2 class="a-up" style="margin: 0; font-size: clamp(32px, 5vw, 72px); font-weight: 800; line-height: 1; text-transform: uppercase; letter-spacing: -0.01em; animation-delay: 2.2s">About me</h2>
+            <p class="a-up" style="margin: 0; font-stretch: 100%; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.7; color: #BDBDBD; animation-delay: 2.45s">Hello, I'm Magnus. I do brand and corporate videos, event videos, recaps, reels, short-form content, motion graphics for events and product presentation, social media and promotional content.&nbsp;</p>
+          </div>
+
+          <!-- right: role / focus / services -->
+          <div class="px-r" style="flex: 0 1 340px; min-width: 0; display: flex; flex-direction: column; gap: clamp(32px, 3.6vw, 44px)">
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div class="a-bar glow" style="width: 96px; height: 14px; background: #D9D9D9; animation-delay: 2.5s, 3.6s"></div>
+              <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #8F8F8F; animation-delay: 2.7s">&gt; Role</span>
+              <span class="a-up" style="font-size: clamp(16px, 1.5vw, 19px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; animation-delay: 2.85s">VIDEO EDITOR</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div class="a-bar glow" style="width: 96px; height: 14px; background: #D9D9D9; animation-delay: 2.7s, 4.3s"></div>
+              <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #8F8F8F; animation-delay: 2.9s">&gt; Focus</span>
+              <span class="a-up" style="font-size: clamp(16px, 1.5vw, 19px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; animation-delay: 3.05s">B2B, B2G</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div class="a-bar glow" style="width: 96px; height: 14px; background: #D9D9D9; animation-delay: 2.9s, 5s"></div>
+              <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #8F8F8F; animation-delay: 3.1s">&gt; Services</span>
+              <div class="a-up" style="display: flex; flex-direction: column; gap: 6px; font-size: clamp(16px, 1.5vw, 19px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; animation-delay: 3.25s"><span>Video editing</span>
+                <span>Motion design</span>
+                <span>Sound design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 3 — CONTACTS ================= -->
+  <section id="contact" data-px="1" data-rv="contact" class="screen rv" style="position: relative; overflow: hidden; background: #D9D9D9; color: #111111">
+
+    <div class="px-dim" aria-hidden="true" style="position: absolute; inset: 0; z-index: 1; background: #141414; pointer-events: none"></div>
+    <div class="px-out" style="position: relative; z-index: 2; width: 100%; max-width: 1240px; margin: 0 auto; padding: clamp(80px, 8vw, 120px) clamp(16px, 4vw, 40px) clamp(32px, 4vw, 56px); box-sizing: border-box">
+      <div class="a-line" aria-hidden="true" style="position: absolute; left: 50%; top: clamp(40px, 5vw, 64px); width: min(260px, 40%); margin-left: max(-130px, -20%); height: 1px; background: #8A8A8A; animation-delay: 0.2s"></div>
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: clamp(48px, 6vw, 96px)">
+        <!-- left: heading -->
+        <div class="px-l" style="flex: 1 1 380px; min-width: 0; max-width: 560px; display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 28px)">
+          <span style="font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #2A2A2A; white-space: nowrap"><span class="c-typewrap"><span class="c-type">&gt; Contacts</span><span class="c-caret" aria-hidden="true"></span></span></span>
+          <h2 class="a-up" style="margin: 0; font-size: clamp(32px, 5vw, 72px); font-weight: 800; line-height: 1; text-transform: uppercase; letter-spacing: -0.01em; animation-delay: 0.9s">Let's talk</h2>
+          <p class="a-up" style="margin: 0; font-stretch: 100%; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.7; color: #222222; animation-delay: 1.1s">Open for projects. Write to me wherever is easiest — I'll get back to you.</p>
+        </div>
+
+        <!-- right: contact list -->
+        <div class="px-r" style="flex: 0 1 500px; min-width: 0; display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 28px)">
+          <a class="c-row" href="mailto:mbergvideoprod@gmail.com" aria-label="Copy email address mbergvideoprod@gmail.com" title="Click to copy" style="display: flex; align-items: center; gap: 18px; padding: 6px 0; color: #111111">
+            <span class="a-drop" aria-hidden="true" style="flex: none; width: 8px; height: 46px; background: #111111; animation-delay: 1.1s"></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(42, 42, 42); animation-delay: 1.25s">&gt; Email</span>
+              <span class="c-val a-up" style="font-size: clamp(13px, 3.4vw, 22px); font-weight: 800; font-stretch: 100%; text-transform: uppercase; letter-spacing: 0px; white-space: nowrap; color: rgb(17, 17, 17); animation-delay: 1.35s">[mbergvideoprod@gmail.com]</span>
+            </span>
+            <svg class="c-arrow a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.5s"><rect x="6" y="6" width="9" height="9" fill="none" stroke="#111111" stroke-width="1.5"></rect><path d="M3 12V3h9" fill="none" stroke="#111111" stroke-width="1.5"></path></svg>
+          </a>
+          <a class="c-row" href="https://t.me/someque" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 18px; padding: 6px 0; color: #111111">
+            <span class="a-drop" aria-hidden="true" style="flex: none; width: 8px; height: 46px; background: #111111; animation-delay: 1.25s"></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(42, 42, 42); animation-delay: 1.4s">&gt; Telegram</span>
+              <span class="c-val a-up" style="font-size: clamp(13px, 3.4vw, 22px); font-weight: 800; font-stretch: 100%; text-transform: uppercase; letter-spacing: 0px; white-space: nowrap; color: rgb(17, 17, 17); animation-delay: 1.5s">@[someque]</span>
+            </span>
+            <svg class="c-arrow a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.65s"><path d="M4 14L14 4M6 4h8v8" fill="none" stroke="#111111" stroke-width="1.6"></path></svg>
+          </a>
+          <a class="c-row" href="https://www.instagram.com/byane_marg?vrfl=MWpuNXlyZzd0bjJieA==" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 18px; padding: 6px 0; color: #111111">
+            <span class="a-drop" aria-hidden="true" style="flex: none; width: 8px; height: 46px; background: #111111; animation-delay: 1.4s"></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(42, 42, 42); animation-delay: 1.55s">&gt; Instagram</span>
+              <span class="c-val a-up" style="font-size: clamp(13px, 3.4vw, 22px); font-weight: 800; font-stretch: 100%; text-transform: uppercase; letter-spacing: 0px; white-space: nowrap; color: rgb(17, 17, 17); animation-delay: 1.65s">@[byane_marg]</span>
+            </span>
+            <svg class="c-arrow a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.8s"><path d="M4 14L14 4M6 4h8v8" fill="none" stroke="#111111" stroke-width="1.6"></path></svg>
+          </a>
+          <a class="c-row" href="https://www.youtube.com/watch?v=ZLEERf_moXA" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 18px; padding: 6px 0; color: #111111">
+            <span class="a-drop" aria-hidden="true" style="flex: none; width: 8px; height: 46px; background: #111111; animation-delay: 1.55s"></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(42, 42, 42); animation-delay: 1.7s">&gt; YouTube</span>
+              <span class="c-val a-up" style="font-size: clamp(13px, 3.4vw, 22px); font-weight: 800; font-stretch: 100%; text-transform: uppercase; letter-spacing: 0px; white-space: nowrap; color: rgb(17, 17, 17); animation-delay: 1.8s">[Showreel]</span>
+            </span>
+            <svg class="c-arrow a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.95s"><path d="M4 14L14 4M6 4h8v8" fill="none" stroke="#111111" stroke-width="1.6"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="a-line" aria-hidden="true" style="width: min(820px, 100%); height: 1px; margin: clamp(48px, 6vw, 96px) auto 0; background: #8A8A8A; animation-delay: 1.9s"></div>
+      <div class="a-fade" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; margin-top: 20px; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #1E1E1E; animation-delay: 2.1s">
+        <span>© 2026 [MAGNUS BERG]</span>
+        <a class="darklink" href="#top" style="padding: 12px 0; border-bottom: 1px solid transparent">Back to top ↑</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- "Email copied" notice: always in the page but hidden by CSS; the script adds .show to pop it up (stays hidden if the script can't run) -->
+    <div class="toast" role="status" aria-live="polite" style="position: fixed; left: 50%; bottom: 24px; z-index: 60; display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: #111111; color: #E6E6E6; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.35); pointer-events: none">
+      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14"><path d="M2 7.5L5.5 11L12 3.5" fill="none" stroke="#E6E6E6" stroke-width="1.6"></path></svg>
+      <span>Email copied</span>
+    </div>
+</div></template>
+<template id="mob-tpl"><style>:host{display:block;height:100%;background:#0B0B0B}
+
+html,body{margin:0;height:100%;background:#0B0B0B;overflow:hidden}
+a{color:#E6E6E6;text-decoration:none;-webkit-tap-highlight-color:transparent}
+button{-webkit-tap-highlight-color:transparent}
+
+/* ===== pager: its own scroller, one slide = one screen, one swipe = one slide ===== */
+.pager{height:100vh;height:100dvh;width:100%;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pager::-webkit-scrollbar{display:none}
+.slide{position:relative;height:100%;min-height:100%;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;box-sizing:border-box}
+
+/* ===== keyframes ===== */
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes lineX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes caret{from{left:0%}to{left:100%}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes plusIn{from{opacity:0;transform:rotate(-180deg) scale(.3)}to{opacity:1;transform:none}}
+@keyframes barX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes nameIn{0%{opacity:0;clip-path:inset(-20% 50% -20% 50%);filter:blur(3px)}20%{opacity:1}100%{opacity:1;clip-path:inset(-20% 0 -20% 0);filter:blur(0)}}
+@keyframes tickIn{from{opacity:0;transform:scaleY(.2)}to{transform:none}}
+@keyframes scan{0%,100%{filter:brightness(1)}50%{filter:brightness(.3)}}
+@keyframes stripesIn{from{opacity:0;transform:translate(-50%,-50%) scaleX(.1)}to{opacity:1;transform:translate(-50%,-50%) scaleX(1)}}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes stripeWave{0%{-webkit-mask-position:0 200%;mask-position:0 200%}75%,100%{-webkit-mask-position:0 -100%;mask-position:0 -100%}}
+@keyframes glowMoveL{from{left:32.5%}to{left:-22%}}
+@keyframes glowMoveR{from{left:32.5%}to{left:87%}}
+@keyframes glowFade{0%{opacity:0}25%{opacity:1}62%{opacity:1}97%,100%{opacity:0}}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(230,230,230,.5)}70%,100%{box-shadow:0 0 0 16px rgba(230,230,230,0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:none}}
+@keyframes cue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+@keyframes toastLife{0%{opacity:0;transform:translate(-50%,12px)}12%{opacity:1;transform:translate(-50%,0)}82%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,6px)}}
+
+/* ===== reveal: hidden only once the script runs (.anim) and until the slide is reached ===== */
+.anim .rv:not(.in) .a-up,.anim .rv:not(.in) .a-fade,.anim .rv:not(.in) .a-line,.anim .rv:not(.in) .a-type,
+.anim .rv:not(.in) .a-plus,.anim .rv:not(.in) .a-bar,.anim .rv:not(.in) .a-name,.anim .rv:not(.in) .a-pop{opacity:0}
+.rv.in .a-up{animation:up .9s cubic-bezier(.16,1,.3,1) both}
+.rv.in .a-fade{animation:fade 1.1s ease both}
+.rv.in .a-line{animation:lineX 1.3s cubic-bezier(.76,0,.24,1) both}
+.rv.in .a-type{animation:type .8s steps(20,end) both}
+.rv.in .a-plus{animation:plusIn 1.1s cubic-bezier(.16,1,.3,1) both}
+.rv.in .a-bar{transform-origin:left;animation:barX .8s cubic-bezier(.7,0,.2,1) both}
+.rv.in .a-name{animation:nameIn 1.5s cubic-bezier(.76,0,.24,1) both}
+.rv.in .a-pop{animation:popIn .9s cubic-bezier(.16,1,.3,1) both}
+
+/* ===== slide 1: ticks, stripes, glow lines ===== */
+.tk{flex:none;width:2px;height:16px;background:#E6E6E6}
+.rv.in .tick-l .tk,.rv.in .tick-r .tk{animation:tickIn 1s cubic-bezier(.16,1,.3,1) both,scan 4s ease-in-out infinite}
+.tick-r .tk:nth-child(1),.tick-l .tk:nth-last-child(1){animation-delay:.8s,2.6s!important}
+.tick-r .tk:nth-child(2),.tick-l .tk:nth-last-child(2){animation-delay:.87s,2.74s!important}
+.tick-r .tk:nth-child(3),.tick-l .tk:nth-last-child(3){animation-delay:.94s,2.88s!important}
+.tick-r .tk:nth-child(4),.tick-l .tk:nth-last-child(4){animation-delay:1.01s,3.02s!important}
+.tick-r .tk:nth-child(5),.tick-l .tk:nth-last-child(5){animation-delay:1.08s,3.16s!important}
+.tick-r .tk:nth-child(6),.tick-l .tk:nth-last-child(6){animation-delay:1.15s,3.3s!important}
+.tick-r .tk:nth-child(7),.tick-l .tk:nth-last-child(7){animation-delay:1.22s,3.44s!important}
+.stripes{animation:stripesIn 2s cubic-bezier(.16,1,.3,1) .3s both,breathe 5s ease-in-out 2.6s infinite}
+.stripe-wave{position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0) 0px,rgba(255,255,255,.45) 1px,rgba(255,255,255,0) 2px,rgba(255,255,255,0) 5px);-webkit-mask-image:linear-gradient(180deg,transparent,#000 50%,transparent);mask-image:linear-gradient(180deg,transparent,#000 50%,transparent);-webkit-mask-size:100% 45%;mask-size:100% 45%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;animation:stripeWave 6s linear 2.8s infinite both}
+.hl{position:relative;overflow:hidden;height:1px;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 70%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 70%,transparent 100%)}
+.line-glow{position:absolute;top:-1px;left:32.5%;width:35%;height:3px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0));filter:blur(.6px);opacity:0;pointer-events:none}
+.line-glow.l{animation:glowMoveL 6.5s cubic-bezier(.25,.46,.45,.94) 3.2s infinite both,glowFade 6.5s ease-in-out 3.2s infinite both}
+.line-glow.r{animation:glowMoveR 6.5s cubic-bezier(.25,.46,.45,.94) 3.2s infinite both,glowFade 6.5s ease-in-out 3.2s infinite both}
+.play{animation:popIn .9s cubic-bezier(.16,1,.3,1) 1.6s both,ring 2.4s ease-out 2.6s infinite;transition:background .3s ease}
+.play path{transition:fill .3s ease}
+.cta:active .play{background:#E6E6E6}
+.cta:active .play path{fill:#0B0B0B}
+.typewrap{position:relative;display:inline-block}
+.typetext{display:inline-block}
+.caret{position:absolute;left:100%;top:50%;width:6px;height:12px;margin:-6px 0 0 4px;background:#BDBDBD}
+.anim .rv:not(.in) .typetext{clip-path:inset(0 100% 0 0)}
+.anim .rv:not(.in) .caret{opacity:0}
+.rv.in .typetext{animation:type 1.4s steps(30,end) var(--td,2s) both}
+.rv.in .caret{animation:fade .3s ease calc(var(--td,2s) - .3s) both,caret 1.4s steps(30,end) var(--td,2s) both,blink 1.1s steps(1) calc(var(--td,2s) + 1.5s) infinite}
+.cue{animation:fade 1s ease 3s both}
+.cue svg{animation:cue 1.8s ease-in-out 3s infinite}
+
+/* ===== scene transitions + parallax (values set from the pager's scroll) ===== */
+.out{opacity:calc(1 - var(--a, 0) * .85);scale:calc(1 - var(--a, 0) * .05)}
+.dim{opacity:var(--pin, 0)}
+.px-l{translate:0 calc(var(--p, 0) * 30px)}
+.px-r{translate:0 calc(var(--p, 0) * 70px)}
+
+/* ===== page dots ===== */
+.dot{display:block;width:6px;height:6px;border-radius:3px;background:currentColor;opacity:.35;transition:height .5s cubic-bezier(.16,1,.3,1),opacity .4s ease}
+.dot.on{height:22px;opacity:1}
+
+/* ===== contact rows + toast ===== */
+.c-row{display:flex;align-items:center;gap:14px;min-height:52px;padding:4px 0;color:#111111}
+.c-row:active .c-val{opacity:.6}
+.toast{opacity:0;visibility:hidden;transform:translate(-50%,0)}
+.toast.show{visibility:visible;animation:toastLife 2.4s cubic-bezier(.16,1,.3,1) both}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .anim .rv:not(.in) *{opacity:1!important}
+  .anim .rv:not(.in) .typetext{clip-path:none!important}
+  .stripe-wave,.line-glow{display:none}
+}
+</style><div class="root" style="position: relative; height: 100%; background: #0B0B0B; color: #E6E6E6; font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-stretch: 125%">
+
+  <!-- page dots (right edge) -->
+  <nav aria-label="Pages" style="position: fixed; right: 6px; top: 50%; transform: translateY(-50%); z-index: 20; display: flex; flex-direction: column; color: #E6E6E6">
+    <button type="button" aria-label="Page 1" data-go="0" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 34px; padding: 0; border: none; background: transparent; color: inherit; cursor: pointer"><span class="dot on"></span></button>
+    <button type="button" aria-label="Page 2" data-go="1" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 34px; padding: 0; border: none; background: transparent; color: inherit; cursor: pointer"><span class="dot"></span></button>
+    <button type="button" aria-label="Page 3" data-go="2" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 34px; padding: 0; border: none; background: transparent; color: inherit; cursor: pointer"><span class="dot"></span></button>
+  </nav>
+
+  <div class="pager">
+
+    <!-- ================= SLIDE 1 — NAME + SHOWREEL ================= -->
+    <section id="s1" data-slide="0" class="slide rv in" style="background: #0B0B0B">
+      <header class="a-fade" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px 0; animation-delay: 2.4s">
+        <span style="font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F">C:/[BYANE_MARG]</span>
+        <a href="https://www.youtube.com/watch?v=ZLEERf_moXA" target="_blank" rel="noopener" style="display: flex; align-items: center; min-height: 44px; padding: 0 4px; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase">Reel ↗</a>
+      </header>
+
+      <div class="out" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; padding: 8px 20px 70px; box-sizing: border-box">
+        <div class="hl a-line" style="width: 46%; background: #3A3A3A; animation-delay: 0.1s"><span class="line-glow l"></span><span class="line-glow r"></span></div>
+
+        <div class="px-l" style="display: flex; flex-direction: column; align-items: center; gap: 22px; width: 100%">
+          <div aria-hidden="true" style="display: flex; align-items: center; justify-content: center; gap: 48px; width: 100%">
+            <div class="tick-l" style="display: flex; gap: 9px">
+              <span class="tk" style="opacity: 0.12"></span><span class="tk" style="opacity: 0.22"></span><span class="tk" style="opacity: 0.34"></span><span class="tk" style="opacity: 0.48"></span><span class="tk" style="opacity: 0.62"></span><span class="tk" style="opacity: 0.8"></span><span class="tk" style="opacity: 1"></span>
+            </div>
+            <div class="tick-r" style="display: flex; gap: 9px">
+              <span class="tk" style="opacity: 1"></span><span class="tk" style="opacity: 0.8"></span><span class="tk" style="opacity: 0.62"></span><span class="tk" style="opacity: 0.48"></span><span class="tk" style="opacity: 0.34"></span><span class="tk" style="opacity: 0.22"></span><span class="tk" style="opacity: 0.12"></span>
+            </div>
+          </div>
+
+          <div style="position: relative; padding: 10px 0">
+            <div class="stripes" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 130%; height: 220px; transform: translate(-50%, -50%); background: repeating-linear-gradient(90deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0.11) 1px, rgba(255,255,255,0) 2px, rgba(255,255,255,0) 5px); -webkit-mask-image: radial-gradient(closest-side, #000 0%, transparent 100%); mask-image: radial-gradient(closest-side, #000 0%, transparent 100%); pointer-events: none"><div class="stripe-wave"></div></div>
+            <h1 class="a-name" style="position: relative; margin: 0; font-weight: 800; font-size: clamp(38px, 12vw, 54px); line-height: 1.02; letter-spacing: -0.01em; text-transform: uppercase; text-align: center; animation-delay: 0.4s">[MAGNUS BERG]</h1>
+          </div>
+        </div>
+
+        <a class="cta px-r" href="https://www.youtube.com/watch?v=ZLEERf_moXA" target="_blank" rel="noopener" aria-label="Watch the video editor showreel on YouTube" style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 6px 12px; text-align: center">
+          <span class="play" aria-hidden="true" style="width: 68px; height: 68px; border: 1px solid #E6E6E6; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-sizing: border-box"><svg width="16" height="19" viewBox="0 0 16 19" style="margin-left: 4px"><path d="M0 0L16 9.5L0 19Z" fill="#E6E6E6"></path></svg></span>
+          <span class="a-up" style="font-size: 15px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.35; animation-delay: 1.4s">Video Editor — Showreel 2026</span>
+          <span class="a-fade" style="font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F; animation-delay: 2.2s">&gt; Tap to watch on YouTube</span>
+        </a>
+
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <p style="margin: 0; padding-right: 10px; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.04em; color: #A8A8A8; white-space: nowrap"><span class="typewrap" style="--td: 2.2s"><span class="typetext">C:/DESTINATION/[MAGNUSBERG]/SHOWREEL</span><span class="caret" aria-hidden="true"></span></span></p>
+          <div class="hl a-line" style="width: 100%; background: #2E2E2E; animation-delay: 1.9s"><span class="line-glow l"></span><span class="line-glow r"></span></div>
+        </div>
+      </div>
+
+      <!-- swipe cue -->
+      <div class="cue" aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 18px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8F8F">
+        <span>Swipe</span>
+        <svg width="14" height="9" viewBox="0 0 14 9"><path d="M1 1l6 6 6-6" fill="none" stroke="#8F8F8F" stroke-width="1.4"></path></svg>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 2 — INFO / BIO ================= -->
+    <section id="s2" data-slide="1" class="slide rv" style="background: #141414">
+      <div class="dim" aria-hidden="true" style="position: absolute; inset: 0; background: #0B0B0B; pointer-events: none"></div>
+
+      <div class="out" style="position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 56px 20px 40px; box-sizing: border-box">
+        <div style="position: relative; padding: 34px 18px 30px">
+          <svg class="a-plus" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" style="position: absolute; left: -8px; top: -8px; animation-delay: 0.1s"><path d="M8 0v16M0 8h16" stroke="#E6E6E6" stroke-width="2"></path></svg>
+          <svg class="a-plus" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" style="position: absolute; right: -8px; top: -8px; animation-delay: 0.2s"><path d="M8 0v16M0 8h16" stroke="#E6E6E6" stroke-width="2"></path></svg>
+          <svg class="a-plus" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" style="position: absolute; left: -8px; bottom: -8px; animation-delay: 0.3s"><path d="M8 0v16M0 8h16" stroke="#E6E6E6" stroke-width="2"></path></svg>
+          <svg class="a-plus" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" style="position: absolute; right: -8px; bottom: -8px; animation-delay: 0.4s"><path d="M8 0v16M0 8h16" stroke="#E6E6E6" stroke-width="2"></path></svg>
+
+          <div class="px-l" style="display: flex; flex-direction: column; gap: 16px">
+            <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F; animation-delay: 0.3s">&gt; Info / Bio</span>
+            <h2 class="a-up" style="margin: 0; font-size: 40px; font-weight: 800; line-height: 1; text-transform: uppercase; letter-spacing: -0.01em; animation-delay: 0.4s">About me</h2>
+            <p class="a-up" style="margin: 0; font-stretch: 100%; font-size: 16px; line-height: 1.6; color: #BDBDBD; animation-delay: 0.6s">Hello, I'm Magnus. I do brand and corporate videos, event videos, recaps, reels, short-form content, motion graphics for events and product presentation, social media and promotional content.</p>
+          </div>
+
+          <div class="px-r" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 18px; margin-top: 30px">
+            <div style="display: flex; flex-direction: column; gap: 9px">
+              <div class="a-bar" style="width: 72px; height: 12px; background: #D9D9D9; animation-delay: 0.8s"></div>
+              <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F; animation-delay: 1s">&gt; Role</span>
+              <span class="a-up" style="font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; animation-delay: 1.1s">Video editor</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 9px">
+              <div class="a-bar" style="width: 72px; height: 12px; background: #D9D9D9; animation-delay: 0.95s"></div>
+              <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F; animation-delay: 1.15s">&gt; Focus</span>
+              <span class="a-up" style="font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; animation-delay: 1.25s">B2B, B2G</span>
+            </div>
+            <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 9px">
+              <div class="a-bar" style="width: 72px; height: 12px; background: #D9D9D9; animation-delay: 1.1s"></div>
+              <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F8F8F; animation-delay: 1.3s">&gt; Services</span>
+              <div class="a-up" style="display: flex; flex-direction: column; gap: 5px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; animation-delay: 1.4s">
+                <span>Video editing</span>
+                <span>Motion design</span>
+                <span>Sound design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 3 — CONTACTS ================= -->
+    <section id="s3" data-slide="2" class="slide rv" style="background: #D9D9D9; color: #111111">
+      <div class="dim" aria-hidden="true" style="position: absolute; inset: 0; background: #141414; pointer-events: none"></div>
+
+      <div class="out" style="position: relative; flex: 1; display: flex; flex-direction: column; padding: 48px 36px 22px 22px; box-sizing: border-box">
+        <div class="hl a-line" style="align-self: center; width: 46%; background: #8A8A8A; animation-delay: 0.1s"></div>
+
+        <div style="margin: auto 0; display: flex; flex-direction: column; gap: 30px; padding: 28px 0">
+          <div class="px-l" style="display: flex; flex-direction: column; gap: 14px">
+            <span style="font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #2A2A2A; white-space: nowrap; padding-right: 12px"><span class="typewrap" style="--td: 0.4s"><span class="typetext">&gt; Contacts</span><span class="caret" aria-hidden="true" style="background: #222222"></span></span></span>
+            <h2 class="a-up" style="margin: 0; font-size: 40px; font-weight: 800; line-height: 1; text-transform: uppercase; letter-spacing: -0.01em; animation-delay: 0.5s">Let's talk</h2>
+            <p class="a-up" style="margin: 0; font-stretch: 100%; font-size: 16px; line-height: 1.6; color: #222222; animation-delay: 0.7s">Open for projects. Write to me wherever is easiest — I'll get back to you.</p>
+          </div>
+
+          <div class="px-r" style="display: flex; flex-direction: column; gap: 10px">
+            <a class="c-row" href="mailto:mbergvideoprod@gmail.com" aria-label="Copy email address mbergvideoprod@gmail.com">
+              <span class="a-bar" aria-hidden="true" style="flex: none; width: 6px; height: 40px; background: #111111; transform-origin: top; animation-delay: 0.8s"></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #2A2A2A; animation-delay: 0.9s">&gt; Email · tap to copy</span>
+                <span class="c-val a-up" style="font-size: 15px; font-weight: 800; font-stretch: 100%; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation-delay: 1s">[mbergvideoprod@gmail.com]</span>
+              </span>
+              <svg class="a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.1s"><rect x="6" y="6" width="9" height="9" fill="none" stroke="#111111" stroke-width="1.5"></rect><path d="M3 12V3h9" fill="none" stroke="#111111" stroke-width="1.5"></path></svg>
+            </a>
+            <a class="c-row" href="https://t.me/someque" target="_blank" rel="noopener">
+              <span class="a-bar" aria-hidden="true" style="flex: none; width: 6px; height: 40px; background: #111111; animation-delay: 0.95s"></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #2A2A2A; animation-delay: 1.05s">&gt; Telegram</span>
+                <span class="c-val a-up" style="font-size: 15px; font-weight: 800; font-stretch: 100%; text-transform: uppercase; white-space: nowrap; animation-delay: 1.15s">@[someque]</span>
+              </span>
+              <svg class="a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.25s"><path d="M4 14L14 4M6 4h8v8" fill="none" stroke="#111111" stroke-width="1.6"></path></svg>
+            </a>
+            <a class="c-row" href="https://www.instagram.com/byane_marg?vrfl=MWpuNXlyZzd0bjJieA==" target="_blank" rel="noopener">
+              <span class="a-bar" aria-hidden="true" style="flex: none; width: 6px; height: 40px; background: #111111; animation-delay: 1.1s"></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #2A2A2A; animation-delay: 1.2s">&gt; Instagram</span>
+                <span class="c-val a-up" style="font-size: 15px; font-weight: 800; font-stretch: 100%; text-transform: uppercase; white-space: nowrap; animation-delay: 1.3s">@[byane_marg]</span>
+              </span>
+              <svg class="a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.4s"><path d="M4 14L14 4M6 4h8v8" fill="none" stroke="#111111" stroke-width="1.6"></path></svg>
+            </a>
+            <a class="c-row" href="https://www.youtube.com/watch?v=ZLEERf_moXA" target="_blank" rel="noopener">
+              <span class="a-bar" aria-hidden="true" style="flex: none; width: 6px; height: 40px; background: #111111; animation-delay: 1.25s"></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <span class="a-type" style="width: fit-content; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #2A2A2A; animation-delay: 1.35s">&gt; YouTube</span>
+                <span class="c-val a-up" style="font-size: 15px; font-weight: 800; font-stretch: 100%; text-transform: uppercase; white-space: nowrap; animation-delay: 1.45s">[Showreel]</span>
+              </span>
+              <svg class="a-fade" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" style="flex: none; animation-delay: 1.55s"><path d="M4 14L14 4M6 4h8v8" fill="none" stroke="#111111" stroke-width="1.6"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="hl a-line" style="width: 100%; background: #8A8A8A; animation-delay: 1.6s"></div>
+        <div class="a-fade" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 6px; font-family: 'Poppins', sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #1E1E1E; animation-delay: 1.7s">
+          <span>© 2026 [MAGNUS BERG]</span>
+          <a href="#s1" data-go="0" style="display: flex; align-items: center; min-height: 44px; color: #1E1E1E">Back to top ↑</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- "Email copied" notice (hidden unless the script shows it) -->
+  <div class="toast" role="status" aria-live="polite" style="position: fixed; left: 50%; bottom: 28px; z-index: 60; display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: #111111; color: #E6E6E6; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.35); pointer-events: none">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14"><path d="M2 7.5L5.5 11L12 3.5" fill="none" stroke="#E6E6E6" stroke-width="1.6"></path></svg>
+    <span>Email copied</span>
+  </div>
+</div></template>
+
+<script>
+(function () {
+  var EMAIL = 'mbergvideoprod@gmail.com';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function mount(hostId, tplId) {
+    var host = document.getElementById(hostId);
+    var root = host.attachShadow({ mode: 'open' });
+    root.appendChild(document.getElementById(tplId).content.cloneNode(true));
+    return root;
+  }
+
+  // copy email -> "Email copied" notice; if copying is impossible, open the mail app
+  function wireEmail(root) {
+    var toast = root.querySelector('.toast');
+    var timer;
+    function show() {
+      if (!toast) return;
+      toast.classList.remove('show');
+      void toast.offsetWidth;            // restart the animation
+      toast.classList.add('show');
+      clearTimeout(timer);
+      timer = setTimeout(function () { toast.classList.remove('show'); }, 2500);
+    }
+    function fallback() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = EMAIL; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) { show(); return; }
+      } catch (e) {}
+      window.location.href = 'mailto:' + EMAIL;
+    }
+    root.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(EMAIL).then(show, fallback);
+        } else { fallback(); }
+      });
+    });
+  }
+
+  // ================= DESKTOP =================
+  var desk = mount('desk', 'desk-tpl');
+  (function () {
+    var rootEl = desk.querySelector('.root');
+    rootEl.classList.add('anim');
+
+    // reveal each scene when it scrolls into view
+    var targets = desk.querySelectorAll('[data-rv]');
+    var fired = false;
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        fired = true;
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.18 });
+      targets.forEach(function (t) { io.observe(t); });
+      setTimeout(function () { if (!fired) targets.forEach(function (t) { t.classList.add('in'); }); }, 1500);
+    } else { targets.forEach(function (t) { t.classList.add('in'); }); }
+
+    // parallax + scene transitions
+    if (!reduce) {
+      var raf = 0;
+      var scenes = desk.querySelectorAll('[data-px]');
+      var update = function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = 0;
+          var vh = window.innerHeight || 1;
+          scenes.forEach(function (el) {
+            var r = el.getBoundingClientRect();
+            var p = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
+            p = Math.max(-1, Math.min(1, p));
+            el.style.setProperty('--p', p.toFixed(4));
+            el.style.setProperty('--a', Math.abs(p).toFixed(4));
+            el.style.setProperty('--pin', Math.max(0, p).toFixed(4));
+          });
+        });
+      };
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+
+    // in-page links (#info, #contact, #top) live inside the shadow root -> scroll to them ourselves
+    desk.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var t = desk.getElementById(a.getAttribute('href').slice(1));
+        if (!t) return;
+        e.preventDefault();
+        t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+
+    wireEmail(desk);
+  })();
+
+  // ================= PHONE =================
+  var mob = mount('mob', 'mob-tpl');
+  (function () {
+    var rootEl = mob.querySelector('.root');
+    rootEl.classList.add('anim');
+    var pager = mob.querySelector('.pager');
+    var slides = mob.querySelectorAll('[data-slide]');
+    var dots = mob.querySelectorAll('.dot');
+    var dotNav = mob.querySelector('nav[aria-label="Pages"]');
+
+    function goTo(i) {
+      if (!slides[i]) return;
+      pager.scrollTo({ top: slides[i].offsetTop, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    mob.querySelectorAll('[data-go]').forEach(function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); goTo(+b.getAttribute('data-go')); });
+    });
+
+    var raf = 0, cur = -1;
+    function update() {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        var pr = pager.getBoundingClientRect();
+        var h = pr.height || 1;
+        var best = 0, bestD = 1e9;
+        slides.forEach(function (s, i) {
+          var v = (s.getBoundingClientRect().top - pr.top) / h;
+          var c = Math.max(-1, Math.min(1, v));
+          if (!reduce) {
+            s.style.setProperty('--p', c.toFixed(4));
+            s.style.setProperty('--a', Math.abs(c).toFixed(4));
+            s.style.setProperty('--pin', Math.max(0, c).toFixed(4));
+          }
+          if (Math.abs(v) < 0.45) s.classList.add('in');
+          if (Math.abs(v) < bestD) { bestD = Math.abs(v); best = i; }
+        });
+        if (best !== cur) {
+          cur = best;
+          dots.forEach(function (d, i) { d.classList.toggle('on', i === cur); });
+          if (dotNav) dotNav.style.color = cur === 2 ? '#111111' : '#E6E6E6';
+        }
+      });
+    }
+    pager.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+
+    wireEmail(mob);
+  })();
+})();
+</script>
+</body>
+</html>
